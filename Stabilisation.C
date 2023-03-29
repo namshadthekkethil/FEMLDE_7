@@ -124,17 +124,35 @@ void Stabilisation::compute_tau(EquationSystems &es) {
                   MPI_COMM_WORLD);
     tau_stab = 0.5 * alpha_stab * max(deltat_mu / 100.0, min(deltat_mu, dt));
   } else if (steady_stab == 1) {
-    // MPI_Allreduce(&h2bymu_min, &h2bymu_glob, 1, MPI_DOUBLE, MPI_MIN,
-    //               MPI_COMM_WORLD);
+    MPI_Allreduce(&h2bymu_min, &h2bymu_glob, 1, MPI_DOUBLE, MPI_MIN,
+                  MPI_COMM_WORLD);
     h2bymu_glob = h2bymu_min;
     tau_stab = 0.5 * alpha_stab * h2bymu_glob;
   }
+}
+
+void Stabilisation::compute_tau_elem(EquationSystems &es, const Elem *elem)
+{
+  compute_mu(es, elem);
+  double h_elem = min(elem->length(0, 1), elem->length(1, 2));
+  h_elem = min(h_elem, elem->length(0, 2));
+
+#if (MESH_DIMENSION == 3)
+  h_elem = min(h_elem, elem->length(0, 3));
+  h_elem = min(h_elem, elem->length(1, 3));
+  h_elem = min(h_elem, elem->length(2, 3));
+#endif
+
+  tau_elem = 0.5 * alpha_stab * (h_elem * h_elem) / mu;
 }
 
 void Stabilisation::compute_prime() {
   JFinvTragradPre.resize(MESH_DIMENSION);
   GeomPar::FInvTra.vector_mult(JFinvTragradPre, GeomPar::grad_pre);
   JFinvTragradPre.scale(GeomPar::detF);
+
+  if(steady_stab == 1)
+    tau_stab = tau_elem;
 
   prime_vec.resize(MESH_DIMENSION);
   if (steady_stab == 0) {
@@ -236,6 +254,9 @@ void Stabilisation::compute_stab() {
 
 void Stabilisation::compute_stab_der(const std::vector<std::vector<Real>> &phi,
                                      unsigned int qp, unsigned int dof_j) {
+
+  if (steady_stab == 1)
+    tau_stab = tau_elem;
 
   dJFinvTduxgradNA.resize(MESH_DIMENSION);
   dJFinvTduygradNA.resize(MESH_DIMENSION);

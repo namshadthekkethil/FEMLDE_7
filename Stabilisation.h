@@ -77,7 +77,7 @@ public:
 
   static COMPUTEMU compute_mu;
 
-  static double alpha_stab, tau_stab, rho_s, res_stab;
+  static double alpha_stab, tau_stab, rho_s, res_stab, tau_elem;
   static double mu;
   static double deltat_mu, dt;
 
@@ -112,6 +112,7 @@ public:
 
   static void init_stab(EquationSystems &es);
   static void compute_tau(EquationSystems &es);
+  static void compute_tau_elem(EquationSystems &es, const Elem *elem);
   static void compute_prime();
   static void compute_stab();
   static void compute_stab_der(const std::vector<std::vector<Real>> &phi,
