@@ -1,0 +1,12 @@
+CellFibre.x86_64-pc-linux-gnu.opt.o
+*.o
+CellFibre.x86_64-pc-linux-gnu.opt.o
+GeomPar.x86_64-pc-linux-gnu.opt.o
+HOModel.x86_64-pc-linux-gnu.opt.o
+Incompress.x86_64-pc-linux-gnu.opt.o
+LargeDeformationElasticity.x86_64-pc-linux-gnu.opt.o
+MatVecOper.x86_64-pc-linux-gnu.opt.o
+MeshGen.x86_64-pc-linux-gnu.opt.o
+NeoHook.x86_64-pc-linux-gnu.opt.o
+Stabilisation.x86_64-pc-linux-gnu.opt.o
+TensorDer.x86_64-pc-linux-gnu.opt.o

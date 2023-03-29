@@ -2,7 +2,7 @@
 #include "Stabilisation.h"
 
 double Stabilisation::alpha_stab, Stabilisation::tau_stab, Stabilisation::rho_s,
-    Stabilisation::res_stab;
+    Stabilisation::res_stab, Stabilisation::tau_elem;
 double Stabilisation::mu;
 
 double Stabilisation::deltat_mu, Stabilisation::dt;
