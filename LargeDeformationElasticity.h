@@ -279,7 +279,7 @@ public:
 
     pre_itr(es);
 
-    cout << "t_stab=" << Stabilisation::tau_stab << endl;
+    //cout << "t_stab=" << Stabilisation::tau_stab << endl;
 
     NonlinearImplicitSystem &system =
         es.get_system<NonlinearImplicitSystem>("NonlinearElasticity");

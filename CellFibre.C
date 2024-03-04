@@ -167,8 +167,8 @@ void CellFibre::compute_CF_PK2_aniso(EquationSystems &es, const Elem *elem) {
   // dWdI4fbar = G * (0.5 - 0.5 * alpha_fib * pow(max(I4fbar, 1.0), -0.5));
   // dWdI4sbar = G * (0.5 - 0.5 * alpha_fib * pow(max(I4sbar, 1.0), -0.5));
 
-  dWdI4fbar = G * (0.5 - 0.5 * alpha_fib * pow(I4fbar, -0.5));
-  dWdI4sbar = G * (0.5 - 0.5 * alpha_fib * pow(I4sbar, -0.5));
+  dWdI4fbar = G * (0.5 - 0.5 * (1.0/alpha_fib) * pow(I4fbar, -0.5));
+  dWdI4sbar = G * (0.5 - 0.5 * (1.0/alpha_fib) * pow(I4sbar, -0.5));
 
   compute_PK2_aniso();
 }
@@ -177,8 +177,8 @@ void CellFibre::compute_CF_D_aniso() {
   // d2WdI4fbar2 = 0.25 * G * alpha_fib * pow(max(I4fbar, 1.0), -1.5);
   // d2WdI4sbar2 = 0.25 * G * alpha_fib * pow(max(I4sbar, 1.0), -1.5);
 
-  d2WdI4fbar2 = 0.25 * G * alpha_fib * pow(I4fbar, -1.5);
-  d2WdI4sbar2 = 0.25 * G * alpha_fib * pow(I4sbar, -1.5);
+  d2WdI4fbar2 = 0.25 * G * (1.0/alpha_fib) * pow(I4fbar, -1.5);
+  d2WdI4sbar2 = 0.25 * G * (1.0/alpha_fib) * pow(I4sbar, -1.5);
 
   for (unsigned int i = 0; i < MESH_DIMENSION; i++)
     for (unsigned int j = 0; j < MESH_DIMENSION; j++)

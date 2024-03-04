@@ -57,7 +57,7 @@
 #include "libmesh/getpot.h"
 #include "libmesh/string_to_enum.h"
 
-#define MESH_DIMENSION 2
+#define MESH_DIMENSION 3
 
 typedef struct DMAT {
   double D[MESH_DIMENSION][MESH_DIMENSION][MESH_DIMENSION][MESH_DIMENSION];
